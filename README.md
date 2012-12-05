@@ -1,27 +1,30 @@
 Fuelbook
 ======
 
+Fuelbook is Facebook module for FuelPHP.
+
+Install
+------
+
+```
+APPPATH=fuel/app
+git clone git@github.com:niaeashes/fuelbook.git $APPPATH/modules/fuelbook
+git clone git://github.com/facebook/facebook-php-sdk.git $APPPATH/vendor/facebook
+cp $APPPATH/modules/fuelbook/config/fuelbook.php $APPPATH/config/fuelbook.php
+```
+
 Example
 ------
 
 ```php
 <?php
 
-/**
- * The Welcome Controller.
- *
- * A basic controller example.  Has examples of how to set the
- * response body and status.
- * 
- * @package  app
- * @extends  Controller
- */
 class Controller_Welcome extends Controller_Template
 {
 
 	public function action_index()
 	{
-		if ( Fuelbook\Facebook::get_user() )
+		if ( Fuelbook\Controller::facebook_id() )
 			$this->template->title = 'Faacebook Available';
 		else
 			$this->template->title = 'Faacebook Unavailable';
@@ -44,5 +47,4 @@ SDK Methods named camelCase, but you can call methods named underscores to separ
 
 ```
 Facebook::getUser() -> Fuelbook\Facebook::get_user()
-
 ```
