@@ -16,7 +16,7 @@ Example
  * @package  app
  * @extends  Controller
  */
-class Controller_Welcome extends Controller_Base
+class Controller_Welcome extends Controller_Template
 {
 
 	public function action_index()
