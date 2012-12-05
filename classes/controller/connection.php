@@ -6,7 +6,6 @@ class Controller_Connection extends Controller
 {
 
 	protected $facebook = null;
-	protected $user = null;
 
 	public function before()
 	{
@@ -42,6 +41,7 @@ class Controller_Connection extends Controller
 	{
 		if ( $this->_status() ) {
 			$redirect_uri = \Config::get('fuelbook.login.redirect', '/');
+			Model_Autosave::user();
 		}
 		else {
 			$redirect_uri = \Config::get('fuelbook.logout.redirect', '/');
@@ -52,11 +52,6 @@ class Controller_Connection extends Controller
 
 	protected function _status()
 	{
-		if ( is_null($this->user) )
-		{
-			$user = $this->facebook->get_user();
-		}
-
-		return (bool) $user;
+		return (bool) static::facebook_id();
 	}
 }

@@ -8,4 +8,9 @@ class Controller extends \Controller
 	{
 		\Autoloader::load('Fuelbook\\Facebook');
 	}
+
+	public static function facebook_id()
+	{
+		return \Session::get('fuekbook_user_id', false);
+	}
 }
