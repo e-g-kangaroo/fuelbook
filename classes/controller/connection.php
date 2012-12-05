@@ -20,7 +20,7 @@ class Controller_Connection extends Controller
 
 	public function action_login()
 	{
-		$login_url = $this->facebook->getLoginUrl(array(
+		$login_url = $this->facebook->get_login_url(array(
 			'scope' => 'user_about_me',
 			'redirect_uri' => \Uri::create(\Config::get('fuelbook.callback', 'fuelbook/callback'))
 		));
@@ -30,7 +30,7 @@ class Controller_Connection extends Controller
 
 	public function action_logout()
 	{
-		$logout_url = $this->facebook->getLogoutUrl(array(
+		$logout_url = $this->facebook->get_logout_url(array(
 			'scope' => 'user_about_me',
 			'redirect_uri' => \Uri::create(\Config::get('fuelbook.callback', 'fuelbook/callback'))
 		));
@@ -54,7 +54,7 @@ class Controller_Connection extends Controller
 	{
 		if ( is_null($this->user) )
 		{
-			$user = $this->facebook->getUser();
+			$user = $this->facebook->get_user();
 		}
 
 		return (bool) $user;
