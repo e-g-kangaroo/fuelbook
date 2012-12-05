@@ -1,0 +1,3 @@
+config/development/*
+config/staging/*
+config/production/*
