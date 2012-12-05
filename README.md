@@ -21,7 +21,7 @@ class Controller_Welcome extends Controller_Template
 
 	public function action_index()
 	{
-		if ( Request::forge('fuelbook/status')->execute() )
+		if ( Fuelbook\Facebook::get_user() )
 			$this->template->title = 'Faacebook Available';
 		else
 			$this->template->title = 'Faacebook Unavailable';
@@ -35,4 +35,14 @@ class Controller_Welcome extends Controller_Template
 		return Request::forge('fuelbook/login')->execute();
 	}
 }
+```
+
+Method naming
+------
+
+SDK Methods named camelCase, but you can call methods named underscores to separate words, it's follow FuelPHP coding standard.
+
+```
+Facebook::getUser() -> Fuelbook\Facebook::get_user()
+
 ```
