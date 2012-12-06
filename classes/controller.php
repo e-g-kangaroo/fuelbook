@@ -6,7 +6,7 @@ class Controller extends \Controller
 {
 	public static function _init()
 	{
-		\Autoloader::load('Fuelbook\\Facebook');
+		\Autoloader::load('Facebook');
 	}
 
 	public static function facebook_id()
