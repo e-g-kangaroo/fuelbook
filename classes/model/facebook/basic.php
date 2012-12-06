@@ -2,7 +2,7 @@
 
 namespace Fuelbook;
 
-class Model_Facebook_User extends \Orm\Model
+class Model_Facebook_Basic extends \Orm\Model
 {
 	protected static $_properties = array(
 		'id',

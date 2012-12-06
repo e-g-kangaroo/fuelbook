@@ -23,7 +23,7 @@ class Model_Autosave extends \Model
 			'where' => array('facebook_id' => $user_id)
 		);
 
-		if ( Model_Facebook_User::count($count_query) == 0 )
+		if ( Model_Facebook_Basic::count($count_query) == 0 )
 		{
 			$user_profile = (object) Facebook::api('/me');
 

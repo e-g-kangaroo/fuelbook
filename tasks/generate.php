@@ -5,10 +5,10 @@ namespace Fuel\Tasks;
 class Generate
 {
 
-	public static function run()
+	public static function basics()
 	{
 		\Oil\Generate::migration(array(
-			'create_facebook_users',
+			'create_facebook_basics',
 			'facebook_id:string',
 			'display_name:string',
 			'first_name:string',
