@@ -22,7 +22,7 @@ class Controller_Connection extends Controller
 	public function action_login()
 	{
 		$login_url = Facebook::get_login_url(array(
-			'scope' => 'user_about_me',
+			'scope' => \Config::get('fuelbook.scope', 'user_about_me'),
 			'redirect_uri' => \Uri::create(\Config::get('fuelbook.callback', 'fuelbook/callback'))
 		));
 
