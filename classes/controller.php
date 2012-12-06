@@ -11,6 +11,6 @@ class Controller extends \Controller
 
 	public static function facebook_id()
 	{
-		return \Session::get('fuekbook_user_id', false);
+		return \Session::get('fuekbook_user_id');
 	}
 }

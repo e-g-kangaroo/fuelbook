@@ -9,7 +9,9 @@ class Controller_Connection extends Controller
 
 	public function before()
 	{
-		$this->facebook = Facebook::instance();
+		$this->_status();
+
+		\Log::info('Access token: '.Facebook::get_access_token());
 	}
 
 	public function action_status()
@@ -19,7 +21,7 @@ class Controller_Connection extends Controller
 
 	public function action_login()
 	{
-		$login_url = $this->facebook->get_login_url(array(
+		$login_url = Facebook::get_login_url(array(
 			'scope' => 'user_about_me',
 			'redirect_uri' => \Uri::create(\Config::get('fuelbook.callback', 'fuelbook/callback'))
 		));
@@ -29,25 +31,15 @@ class Controller_Connection extends Controller
 
 	public function action_logout()
 	{
-		$logout_url = $this->facebook->get_logout_url(array(
-			'scope' => 'user_about_me',
-			'redirect_uri' => \Uri::create(\Config::get('fuelbook.callback', 'fuelbook/callback'))
-		));
-
-		\Response::redirect($logout_url, 'refresh');
+		\Session::delete('fuekbook_user_id');
+		\Response::redirect(\Uri::create(\Config::get('fuelbook.logout.redirect', '/')), 'refresh');
 	}
 
 	public function action_callback()
 	{
-		if ( $this->_status() ) {
-			$redirect_uri = \Config::get('fuelbook.login.redirect', '/');
-			Model_Autosave::user();
-		}
-		else {
-			$redirect_uri = \Config::get('fuelbook.logout.redirect', '/');
-		}
-
-		\Response::redirect( \Uri::create($redirect_uri) );
+		Model_Autosave::user();
+		\Session::set('fuekbook_user_id', Facebook::get_user());
+		\Response::redirect( \Uri::create(\Config::get('fuelbook.login.redirect', '/')) );
 	}
 
 	protected function _status()
