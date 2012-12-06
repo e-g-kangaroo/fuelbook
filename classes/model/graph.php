@@ -12,7 +12,7 @@ abstract class Model_Graph extends \Model
 
 	private $value = array();
 
-	public static function find( $args = null /* ... */)
+	public static function find(/* polymorphic */)
 	{
 		$args = func_get_args();
 
