@@ -6,13 +6,13 @@ class Model_Autosave extends \Model
 {
 	public static function user()
 	{
-		$user_id = \Session::get('fuekbook_user_id', false);
+		$user_id = \Session::get('fuelbook_user_id', false);
 
 		/**
 		 * Auto save for session.
 		 */
 		if ( $user_id === false ) {
-			\Session::set('fuekbook_user_id', $user_id = Facebook::get_user());
+			\Session::set('fuelbook_user_id', $user_id = Facebook::get_user());
 		}
 
 		/**

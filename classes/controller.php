@@ -11,6 +11,11 @@ class Controller extends \Controller
 
 	public static function facebook_id()
 	{
-		return \Session::get('fuekbook_user_id');
+		return \Session::get('fuelbook_user_id');
+	}
+
+	public static function destroy()
+	{
+		\Session::delete('fuelbook_user_id');
 	}
 }

@@ -36,7 +36,7 @@ abstract class Model_Graph extends \Model
 		return static::fetch($result);
 	}
 
-	public static function fetch($value)
+	public static function fetch($value = null)
 	{
 		$instance = new static();
 

@@ -31,14 +31,14 @@ class Controller_Connection extends Controller
 
 	public function action_logout()
 	{
-		\Session::delete('fuekbook_user_id');
+		\Session::delete('fuelbook_user_id');
 		\Response::redirect(\Uri::create(\Config::get('fuelbook.logout.redirect', '/')), 'refresh');
 	}
 
 	public function action_callback()
 	{
 		Model_Autosave::user();
-		\Session::set('fuekbook_user_id', Facebook::get_user());
+		\Session::set('fuelbook_user_id', Facebook::get_user());
 		\Response::redirect( \Uri::create(\Config::get('fuelbook.login.redirect', '/')) );
 	}
 
