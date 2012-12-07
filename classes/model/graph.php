@@ -51,8 +51,20 @@ abstract class Model_Graph extends \Model
 
 			\Log::info('Try set '.$property_id);
 
+			$path = array($property_id);
+
+			if ( isset($property['path']) ) {
+				$path = explode('/', $property['path']);
+			}
+
+			$real_value = $value;
+
+			foreach ($path as $id) {
+				$real_value = $real_value[$id];
+			}
+
 			if ( isset( $value[$property_id] ))
-				$instance->set($property_id, $value[$property_id]);
+				$instance->set($property_id, $real_value);
 		}
 
 		return $instance;
