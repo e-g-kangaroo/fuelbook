@@ -27,7 +27,7 @@ class Model_Autosave extends \Model
 		{
 			$user_profile = (object) Facebook::api('/me');
 
-			$user = new Model_Facebook_User(array(
+			$user = new Model_Facebook_Basic(array(
 				'facebook_id' => $user_id,
 				'display_name' => $user_profile->name,
 				'first_name' => $user_profile->first_name,
