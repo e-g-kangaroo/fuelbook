@@ -26,6 +26,8 @@ class Controller_Connection extends Controller
 			'redirect_uri' => \Uri::create(\Config::get('fuelbook.callback', 'fuelbook/callback'))
 		));
 
+		\Log::info('Facebook login url: '.$login_url);
+
 		\Response::redirect($login_url, 'refresh');
 	}
 
