@@ -49,8 +49,6 @@ abstract class Model_Graph extends \Model
 				$property = array();
 			}
 
-			\Log::info('Try set '.$property_id);
-
 			$path = array($property_id);
 
 			if ( isset($property['path']) ) {
