@@ -39,6 +39,11 @@ class Controller_Connection extends Controller
 
 	public function action_callback()
 	{
+		if ( ! Facebook::get_user() ) {
+			Facebook::destroy_session();
+			\Response::redirect( \Uri::create(\Config::get('fuelbook.error.redirect', '/')), 'refresh', 200 );
+		}
+
 		Model_Autosave::user();
 		\Session::set('fuelbook_user_id', Facebook::get_user());
 		\Response::redirect( \Uri::create(\Config::get('fuelbook.login.redirect', '/')), 'refresh', 200 );
