@@ -28,20 +28,20 @@ class Controller_Connection extends Controller
 
 		\Log::info('Facebook login url: '.$login_url);
 
-		\Response::redirect($login_url, 'refresh');
+		\Response::redirect($login_url, 'refresh', 200);
 	}
 
 	public function action_logout()
 	{
 		\Session::delete('fuelbook_user_id');
-		\Response::redirect(\Uri::create(\Config::get('fuelbook.logout.redirect', '/')), 'refresh');
+		\Response::redirect(\Uri::create(\Config::get('fuelbook.logout.redirect', '/')), 'refresh', 200);
 	}
 
 	public function action_callback()
 	{
 		Model_Autosave::user();
 		\Session::set('fuelbook_user_id', Facebook::get_user());
-		\Response::redirect( \Uri::create(\Config::get('fuelbook.login.redirect', '/')) );
+		\Response::redirect( \Uri::create(\Config::get('fuelbook.login.redirect', '/')), 'refresh', 200 );
 	}
 
 	protected function _status()
