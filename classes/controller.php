@@ -8,14 +8,4 @@ class Controller extends \Controller
 	{
 		\Autoloader::load('Facebook');
 	}
-
-	public static function facebook_id()
-	{
-		return \Session::get('fuelbook_user_id');
-	}
-
-	public static function destroy()
-	{
-		\Session::delete('fuelbook_user_id');
-	}
 }
