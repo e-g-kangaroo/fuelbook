@@ -11,7 +11,7 @@ class Model_Graph_User extends Model_Graph
 		'first_name',
 		'last_name',
 		'link',
-		'username',
+		'username' => array('default' => ''),
 		'birthday',
 		'picture' => array('path' => 'picture/data/url')
 	);

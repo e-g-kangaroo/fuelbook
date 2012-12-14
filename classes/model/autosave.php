@@ -19,7 +19,7 @@ class Model_Autosave extends \Model
 		 * Auto save for database.
 		 */
 		$count_query = array(
-			'select' => 'id',
+			'select' => 'facebook_id',
 			'where' => array('facebook_id' => $user_id)
 		);
 

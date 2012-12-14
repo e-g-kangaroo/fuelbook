@@ -58,8 +58,10 @@ abstract class Model_Graph extends \Model
 			$real_value = $value;
 
 			foreach ($path as $id) {
-				$real_value = $real_value[$id];
+				if ( isset($real_value[$id]) ) $real_value = $real_value[$id];
 			}
+
+			if ( empty($real_value) and isset($property['default']) ) $real_value = $property['default'];
 
 			if ( isset( $value[$property_id] ))
 				$instance->set($property_id, $real_value);

@@ -2,19 +2,17 @@
 
 namespace Fuelbook;
 
-class Model_Facebook_Basic extends \Orm\Model
+class Model_Facebook_Notification extends \Orm\Model
 {
 	protected static $_properties = array(
+		'id',
 		'facebook_id',
-		'display_name',
-		'first_name',
-		'last_name',
-		'page_url',
+		'template',
+		'href',
+		'sent_at',
 		'created_at',
 		'updated_at'
 	);
-
-	protected static $_primary_key = array('facebook_id');
 
 	protected static $_observers = array(
 		'Orm\Observer_CreatedAt' => array(
