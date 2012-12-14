@@ -26,10 +26,14 @@ class Controller_Notification extends Controller
 
 			$output_json = json_decode($output);
 
-			if ( $output_json->success == true )
+			if ( isset($output_json->success) and $output_json->success == true )
 			{
 				$notice->sent_at = time();
 				$notice->save();
+			}
+			else
+			{
+				\Log::error('Notification error: '.$output_json->error->message);
 			}
 		}
 
