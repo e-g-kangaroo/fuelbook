@@ -13,7 +13,7 @@ git clone git://github.com/facebook/facebook-php-sdk.git $APPPATH/vendor/faceboo
 cp $APPPATH/modules/fuelbook/config/fuelbook.php $APPPATH/config/fuelbook.php
 ```
 
-Example
+Login with Facebook
 ------
 
 ```php
@@ -24,7 +24,7 @@ class Controller_Welcome extends Controller_Template
 
 	public function action_index()
 	{
-		if ( Fuelbook\Controller::facebook_id() )
+		if ( Fuelbook\Status::get_facebook_id() )
 			$this->template->title = 'Faacebook Available';
 		else
 			$this->template->title = 'Faacebook Unavailable';
@@ -47,4 +47,20 @@ SDK Methods named camelCase, but you can call methods named underscores to separ
 
 ```
 Facebook::getUser() -> Fuelbook\Facebook::get_user()
+```
+
+Open graph model
+------
+
+Create fabecook_basics table on your database.
+
+```
+php oil refine fuelbook::generate:basics
+```
+
+```php
+$basic = Fuelbook\Model_Facebook_Basic::find(Fuelbook\Status::get_facebook_id());
+echo $basic->display_name; // Bret Taylor
+echo $basic->first_name; // Bret
+echo $basic->last_name; // Taylor
 ```
