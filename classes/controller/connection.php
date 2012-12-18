@@ -10,8 +10,6 @@ class Controller_Connection extends Controller
 	public function before()
 	{
 		$this->_status();
-
-		\Log::info('Access token: '.Facebook::get_access_token());
 	}
 
 	public function action_status()
@@ -21,32 +19,43 @@ class Controller_Connection extends Controller
 
 	public function action_login()
 	{
+		Status::destroy();
+
 		$login_url = Facebook::get_login_url(array(
 			'scope' => \Config::get('fuelbook.scope', 'user_about_me'),
 			'redirect_uri' => \Uri::create(\Config::get('fuelbook.callback', 'fuelbook/callback'))
 		));
 
-		\Log::debug('Facebook login url: '.$login_url);
+		if ( $user = Facebook::get_user() ) {
+			\Log::warn("User ({$user}) is already logged in with Facebook.");
+		}
 
 		\Response::redirect($login_url, 'refresh', 200);
 	}
 
 	public function action_logout()
 	{
-		Facebook::destroy_session();
+		Status::destroy();
 		\Response::redirect(\Uri::create(\Config::get('fuelbook.logout.redirect', '/')), 'refresh', 200);
 	}
 
 	public function action_callback()
 	{
-		if ( ! Facebook::get_user() ) {
+		\Log::info('Code sample: '.Facebook::get_signed_request());
+
+		if ( ! Facebook::get_user() )
+		{
+			\Log::error('Facebook login failure ()');
 			Status::destroy();
 			\Response::redirect( \Uri::create(\Config::get('fuelbook.error.redirect', '/')), 'refresh', 200 );
 		}
 
-		Model_Autosave::user();
+		Status::set_access_token(Facebook::get_access_token());
+		Status::set_facebook_id(Facebook::get_user());
 
-		\Log::info('Login success: '.Status::get_facebook_id());
+		Facebook::destroy_session();
+
+		Model_Autosave::user();
 
 		\Response::redirect( \Uri::create(\Config::get('fuelbook.login.redirect', '/')), 'refresh', 200 );
 	}

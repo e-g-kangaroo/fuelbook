@@ -15,12 +15,17 @@ class Facebook
 			\Autoloader::load('Fuelbook\\Sdk');
 		}
 
-		self::$instance = new static();
+		static::$instance = new static();
+
+		// Restore access token from fuel-php session.
+		if ( $access_token = Status::get_access_token() ) {
+			static::set_access_token($access_token);
+		}
 	}
 
 	public static function instance()
 	{
-		return self::$instance;
+		return static::$instance;
 	}
 
 	private function __construct()
