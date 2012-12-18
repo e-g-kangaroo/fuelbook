@@ -59,8 +59,8 @@ php oil refine fuelbook::generate:basics
 ```
 
 ```php
-$basic = Fuelbook\Model_Facebook_Basic::find(Fuelbook\Status::get_facebook_id());
-echo $basic->display_name; // Bret Taylor
+$basic = Fuelbook\Model_Graph_User::find();
+echo $basic->name; // Bret Taylor
 echo $basic->first_name; // Bret
 echo $basic->last_name; // Taylor
 ```

@@ -24,6 +24,8 @@ abstract class Model_Graph extends \Model
 
 	protected static function get_by_primary( $value = null )
 	{
+		if ( empty($value) ) $value = 'me';
+
 		$result = Facebook::api( sprintf(static::$_graph_path, (string) $value));
 
 		$key_path = explode('/', static::$_data_path);

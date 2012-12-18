@@ -4,7 +4,7 @@ namespace Fuelbook;
 
 class Model_Graph_User extends Model_Graph
 {
-	protected static $_graph_path = '/me?fields=picture,id,name,first_name,last_name,link,username,birthday';
+	protected static $_graph_path = '/%s?fields=picture,id,name,first_name,last_name,link,username,birthday';
 	protected static $_properties = array(
 		'id',
 		'name',
