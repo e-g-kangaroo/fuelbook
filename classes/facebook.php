@@ -16,11 +16,7 @@ class Facebook
 		}
 
 		static::$instance = new static();
-
-		// Restore access token from fuel-php session.
-		if ( $access_token = Status::get_access_token() ) {
-			static::set_access_token($access_token);
-		}
+		static::reload();
 	}
 
 	public static function instance()
@@ -56,5 +52,13 @@ class Facebook
 	public static function __callStatic($name, $args)
 	{
 		return call_user_func_array(array(static::instance(), $name), $args);
+	}
+
+	public static function reload()
+	{
+		// Restore access token from fuel-php session.
+		if ( $access_token = Status::get_access_token() ) {
+			static::set_access_token($access_token);
+		}
 	}
 }

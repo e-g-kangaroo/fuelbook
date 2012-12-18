@@ -9,13 +9,6 @@ class Model_Autosave extends \Model
 		$user_id = Status::get_facebook_id();
 
 		/**
-		 * Auto save for session.
-		 */
-		if ( $user_id === false ) {
-			Status::set_facebook_id($user_id = Facebook::get_user());
-		}
-
-		/**
 		 * Auto save for database.
 		 */
 		$count_query = array(
@@ -29,10 +22,10 @@ class Model_Autosave extends \Model
 
 			$user = new Model_Facebook_Basic(array(
 				'facebook_id' => $user_id,
-				'display_name' => $user_profile->name,
+				'name' => $user_profile->name,
 				'first_name' => $user_profile->first_name,
 				'last_name' => $user_profile->last_name,
-				'page_url' => $user_profile->link
+				'link' => $user_profile->link
 			));
 			$user->save();
 		}

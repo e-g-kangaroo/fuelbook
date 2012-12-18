@@ -12,7 +12,7 @@ class Model_Graph_User extends Model_Graph
 		'last_name',
 		'link',
 		'username' => array('default' => ''),
-		'birthday',
+		'birthday' => array('default' => ''),
 		'picture' => array('path' => 'picture/data/url')
 	);
 

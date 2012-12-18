@@ -6,10 +6,10 @@ class Model_Facebook_Basic extends \Orm\Model
 {
 	protected static $_properties = array(
 		'facebook_id',
-		'display_name',
+		'name',
 		'first_name',
 		'last_name',
-		'page_url',
+		'link',
 		'created_at',
 		'updated_at'
 	);

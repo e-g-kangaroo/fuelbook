@@ -41,21 +41,25 @@ class Controller_Connection extends Controller
 
 	public function action_callback()
 	{
-		\Log::info('Code sample: '.Facebook::get_signed_request());
-
 		if ( ! Facebook::get_user() )
 		{
-			\Log::error('Facebook login failure ()');
+			\Log::error('Facebook login failure.');
 			Status::destroy();
 			\Response::redirect( \Uri::create(\Config::get('fuelbook.error.redirect', '/')), 'refresh', 200 );
 		}
 
-		Status::set_access_token(Facebook::get_access_token());
 		Status::set_facebook_id(Facebook::get_user());
+		Status::set_access_token(Facebook::get_access_token());
 
 		Facebook::destroy_session();
+		Facebook::reload();
 
-		Model_Autosave::user();
+		try {
+			Model_Autosave::user();
+		}
+		catch ( \FacebookApiException $e ) {
+			\Log::error($e->getMessage());
+		}
 
 		\Response::redirect( \Uri::create(\Config::get('fuelbook.login.redirect', '/')), 'refresh', 200 );
 	}

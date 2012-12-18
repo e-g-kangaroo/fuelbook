@@ -9,10 +9,10 @@ class Generate
 	{
 		\DBUtil::create_table('facebook_basics', array(
 			'facebook_id' => array('type' => 'varchar', 'constraint' => 15),
-			'display_name' => array('type' => 'varchar', 'constraint' => 64),
+			'name' => array('type' => 'varchar', 'constraint' => 64),
 			'first_name' => array('type' => 'varchar', 'constraint' => 32),
 			'last_name' => array('type' => 'varchar', 'constraint' => 32),
-			'page_url' => array('type' => 'varchar', 'constraint' => 200),
+			'link' => array('type' => 'varchar', 'constraint' => 200),
 			'created_at' => array('type' => 'int', 'constraint' => 11),
 			'updated_at' => array('type' => 'int', 'constraint' => 11)
 		), array('facebook_id'));
