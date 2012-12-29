@@ -82,16 +82,25 @@ abstract class Model_Graph extends \Model
 		throw new \Exception('Invaid property name.');
 	}
 
-	public function __get($name)
+	public function get($name)
 	{
-		if ( isset($this->value[$name]) ) {
+		if ( ! empty($this->value[$name]) ) {
 			return $this->value[$name];
 		}
 
 		if ( array_key_exists($name, static::$_properties) or in_array($name, static::$_properties)) {
+			if ( method_exists($this, $m = 'get_'.$name)) {
+				return $this->$m();
+			}
+
 			return null;
 		}
 
 		throw new \Exception('Invaid property name.');
+	}
+
+	public function __get($name)
+	{
+		return $this->get($name);
 	}
 }
