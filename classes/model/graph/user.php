@@ -4,7 +4,7 @@ namespace Fuelbook;
 
 class Model_Graph_User extends Model_Graph
 {
-	protected static $_graph_path = '/%s?fields=picture,id,name,first_name,last_name,link,username,birthday,gender';
+	protected static $_graph_path = '/%s?fields=picture,id,name,first_name,last_name,link,username,birthday,gender,email';
 	protected static $_properties = array(
 		'id',
 		'name',
@@ -15,6 +15,7 @@ class Model_Graph_User extends Model_Graph
 		'birthday' => array('default' => ''),
 		'gender' => array('default' => ''),
 		'picture' => array('path' => 'picture/data/url'),
+		'email' => array('default' => ''),
 		'picture_square' => array('default' => null),
 	);
 
