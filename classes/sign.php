@@ -12,11 +12,11 @@ class Sign
 
 		if ( ! static::$signed_request )
 		{
-			static::$signed_request = \Session::get($this->_sess_signed_request(), false);
+			static::$signed_request = \Session::get(self::_sess_signed_request(), false);
 		}
 		else
 		{
-			\Session::set($this->_sess_signed_request(), static::$signed_request);
+			\Session::set(self::_sess_signed_request(), static::$signed_request);
 		}
 	}
 
