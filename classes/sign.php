@@ -12,17 +12,24 @@ class Sign
 
 		if ( ! static::$signed_request )
 		{
-			static::$signed_request = \Session::get('fuelbook_signed_request', false);
+			static::$signed_request = \Session::get($this->_sess_signed_request(), false);
 		}
 		else
 		{
-			\Session::set('fuelbook_signed_request', static::$signed_request);
+			\Session::set($this->_sess_signed_request(), static::$signed_request);
 		}
 	}
 
-	public static function is_signed()
+	public static function is_signed($in_param = false)
 	{
-		return (boolean) static::$signed_request;
+		if ( ! $in_param )
+		{
+			return (boolean) static::$signed_request;
+		}
+		else
+		{
+			return (boolean) isset($_GET['signed_request']) or (boolean) isset($_POST['signed_request']);
+		}
 	}
 
 	public static function get($name)
@@ -48,5 +55,10 @@ class Sign
 	public static function signed_request()
 	{
 		return static::$signed_request;
+	}
+
+	protected static function _sess_signed_request()
+	{
+		return \Config::get('fuelbook.session.signed_request', '_sess_fuelbook_signed_request');
 	}
 }
