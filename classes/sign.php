@@ -9,6 +9,15 @@ class Sign
 	public static function _init()
 	{
 		static::$signed_request = Facebook::get_signed_request();
+
+		if ( ! static::$signed_request )
+		{
+			static::$signed_request = \Session::get('fuelbook_signed_request', false);
+		}
+		else
+		{
+			\Session::set('fuelbook_signed_request', static::$signed_request);
+		}
 	}
 
 	public static function is_signed()
@@ -25,10 +34,19 @@ class Sign
 		{
 			if ( isset($current_object[$name]) )
 			{
-				$current_object = (array) $current_object[$name];
+				$current_object = $current_object[$name];
+				if ( is_object($current_object))
+				{
+					$current_object = (array) $current_object;
+				}
 			}
 		}
 
 		return $current_object;
+	}
+
+	public static function signed_request()
+	{
+		return static::$signed_request;
 	}
 }
