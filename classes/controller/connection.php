@@ -45,7 +45,11 @@ class Controller_Connection extends Controller
 		{
 			\Log::error('Facebook login failure.');
 			Status::destroy();
-			\Response::redirect( \Uri::create(\Config::get('fuelbook.error.redirect', '/')), 'refresh', 200 );
+
+			if ( ! \Request::is_hmvc() )
+			{
+				\Response::redirect( \Uri::create(\Config::get('fuelbook.error.redirect', '/')), 'refresh', 200 );
+			}
 		}
 
 		Status::set_facebook_id(Facebook::get_user());
@@ -61,7 +65,10 @@ class Controller_Connection extends Controller
 			\Log::error($e->getMessage());
 		}
 
-		\Response::redirect( \Uri::create(\Config::get('fuelbook.login.redirect', '/')), 'refresh', 200 );
+		if ( ! \Request::is_hmvc() )
+		{
+			\Response::redirect( \Uri::create(\Config::get('fuelbook.login.redirect', '/')), 'refresh', 200 );
+		}
 	}
 
 	protected function _status()

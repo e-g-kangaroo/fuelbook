@@ -15,5 +15,9 @@ return array(
 	/**
 	 * see https://developers.facebook.com/docs/reference/login/#permissions
 	 */
-	'scope'      => 'user_about_me'
+	'scope'      => 'user_about_me',
+
+	'login'      => array(
+		'redirect' => 'redirect_url'
+	)
 );
