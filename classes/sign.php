@@ -48,6 +48,10 @@ class Sign
 					$current_object = (array) $current_object;
 				}
 			}
+			else
+			{
+				return false;
+			}
 		}
 
 		return $current_object;
