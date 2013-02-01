@@ -12,6 +12,7 @@ class Sign
 
 		if ( ! static::$signed_request )
 		{
+			\Log::info('Try to load signed_request from session "'.self::_sess_signed_request().'"');
 			static::$signed_request = \Session::get(self::_sess_signed_request(), false);
 		}
 		else
