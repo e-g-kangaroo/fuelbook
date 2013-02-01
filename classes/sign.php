@@ -62,6 +62,11 @@ class Sign
 		return static::$signed_request;
 	}
 
+	public static function abrogate()
+	{
+		\Session::set(self::_sess_signed_request(), false);
+	}
+
 	protected static function _sess_signed_request()
 	{
 		return \Config::get('fuelbook.session.signed_request', '_sess_fuelbook_signed_request');
