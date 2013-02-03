@@ -8,16 +8,15 @@ class Sign
 
 	public static function _init()
 	{
-		static::$signed_request = Facebook::get_signed_request();
 
-		if ( ! static::$signed_request )
+		if ( self::is_signed(true) )
 		{
-			\Log::info('Try to load signed_request from session "'.self::_sess_signed_request().'"');
-			static::$signed_request = \Session::get(self::_sess_signed_request(), false);
+			static::$signed_request = Facebook::get_signed_request();
+			\Session::set(self::_sess_signed_request(), static::$signed_request);
 		}
 		else
 		{
-			\Session::set(self::_sess_signed_request(), static::$signed_request);
+			static::$signed_request = \Session::get(self::_sess_signed_request(), false);
 		}
 	}
 
