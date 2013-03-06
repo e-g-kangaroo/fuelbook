@@ -4,7 +4,7 @@ namespace Fuelbook;
 
 class Controller_Publish extends Controller {
 
-	public function action_status($message)
+	public function action_status($args)
 	{
 		if ( ! \Request::is_hmvc() and \Config::get('fuelbook.only_hmvc'))
 		{
@@ -13,7 +13,7 @@ class Controller_Publish extends Controller {
 
 		try
 		{
-			Facebook::api('/me/feed', 'POST', array('message' => $message));
+			Facebook::api('/me/feed', 'POST', array('message' => $args['message']));
 		}
 		catch (\FacebookApiException $e)
 		{
