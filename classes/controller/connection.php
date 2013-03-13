@@ -19,15 +19,15 @@ class Controller_Connection extends Controller
 
 	public function action_login()
 	{
-		Status::destroy();
-
+		$redirect_uri = \Uri::create(\Config::get('fuelbook.callback', 'fuelbook/callback'));
 		$login_url = Facebook::get_login_url(array(
 			'scope' => \Config::get('fuelbook.scope', 'user_about_me'),
-			'redirect_uri' => \Uri::create(\Config::get('fuelbook.callback', 'fuelbook/callback'))
+			'redirect_uri' => $redirect_uri
 		));
 
 		if ( $user = Facebook::get_user() ) {
-			\Log::warn("User ({$user}) is already logged in with Facebook.");
+			\Log::warning("User ({$user}) is already logged in with Facebook.");
+			\Response::redirect($redirect_uri, 'refresh', 200);
 		}
 
 		\Response::redirect($login_url, 'refresh', 200);
@@ -54,9 +54,6 @@ class Controller_Connection extends Controller
 
 		Status::set_facebook_id(Facebook::get_user());
 		Status::set_access_token(Facebook::get_access_token());
-
-		Facebook::destroy_session();
-		Facebook::reload();
 
 		try {
 			Model_Autosave::user();

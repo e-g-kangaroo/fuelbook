@@ -30,6 +30,23 @@ class Facebook
 			'appId'  => \Config::get('fuelbook.app_id'),
 			'secret' => \Config::get('fuelbook.app_secret')
 		));
+
+		if ( Status::get_access_token() )
+		{
+			static::$facebook->setAccessToken( Status::get_access_token() );
+			static::$facebook->setExtendedAccessToken();
+			$access_token = $this->api->getAccessToken();
+
+			if ( $access_token )
+			{
+				Status::set_access_token("access_token", $access_token );
+				static::$facebook->setAccessToken( $access_token );
+			}
+
+			static::$facebook->setAccessToken( Status::get_access_token() );
+		}
+
+		static::$facebook->getUser();
 	}
 
 	public function __call($name, $args)
