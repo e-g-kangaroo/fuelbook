@@ -35,7 +35,7 @@ class Facebook
 		{
 			static::$facebook->setAccessToken( Status::get_access_token() );
 			static::$facebook->setExtendedAccessToken();
-			$access_token = $this->api->getAccessToken();
+			$access_token = static::$facebook->getAccessToken();
 
 			if ( $access_token )
 			{
